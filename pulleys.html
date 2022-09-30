@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+  <head>
+    <title> Belts </title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      input {
+        font-family: sans-serif;
+        text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <form name="pulley">
+      <fieldset>
+        <legend>
+          <strong>Belts and Pulleys</strong>
+        </legend>
+        <table>
+          <tr>
+            <td> What is the diameter of the larger pulley? </td>
+            <td> <input id="d1" type=text onkeyup="pulleys();"> </td>
+          </tr>
+          <tr>
+            <td> What is the diameter of the smaller pulley? </td>
+            <td> <input id="d2" type=text onkeyup="pulleys();"> </td>
+          </tr>
+          <tr>
+            <td> What is the length between the two pulleys? </td>
+            <td> <input id="c" type=text onkeyup="pulleys();">  </td>
+          </tr>
+          <tr>
+            <td> <input type=reset value="Reset"> </td>
+          </tr>
+          <tr>
+            <td> The length of the belt that wraps around the pulleys is </td>
+            <td> <input id="length" readonly=true type=text> </td>
+          </tr>
+          <tr>
+            <td> The length of the belt that crosses itself is </td>
+            <td> <input id="lengthcx" readonly=true type=text /> </td>
+          </tr>
+        </table>
+      </fieldset>
+    </form>
+    <script>
+      function pulleys() {
+        var radius1 = parseFloat(document.getElementById('d1').value) / 2;
+        var radius2 = parseFloat(document.getElementById('d2').value) / 2;
+        var length1 = parseFloat(document.getElementById('c').value);
+
+        var theta = 2 * Math.acos((radius1 - radius2) / length1);
+        var length2 = 2 * length1 * Math.sin(theta / 2) + radius1 * (2 * Math.PI - theta) + radius2 * theta;
+
+        var phi = Math.acos((radius1 + radius2) / length1);
+        var length3 =  2 * (radius1 + radius2) * (Math.tan(phi) + Math.PI - phi);
+
+        document.getElementById('length').value = length2.toFixed(1);
+        document.getElementById('lengthcx').value = length3.toFixed(1);
+      }
+    </script>
+  </body>
+</html>
